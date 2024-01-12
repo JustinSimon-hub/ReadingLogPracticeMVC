@@ -33,6 +33,24 @@ namespace Testing.Controllers
 
             return View(product);
         }
+        //has to be the same name as the file in views
+        public IActionResult UpdateProduct(int id)
+        {
+            var product = repo.GetProduct(id);
+            if (product == null)
+            {
+                return View("Products not found");
+            }
+            return View(product);
+        }
+
+
+        public IActionResult UpdateProductToDatabase(Product product)
+        {
+            repo.UpdateProduct(product);
+
+            return RedirectToAction("ViewProduct", new { id = product.ProductID });
+        }
 
     }
 }
