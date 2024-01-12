@@ -50,6 +50,30 @@ namespace Testing.Controllers
             repo.UpdateProduct(product);
 
             return RedirectToAction("ViewProduct", new { id = product.ProductID });
+
+        }
+
+
+        public Product AssignCategory()
+        {
+            var categoryList = repo.GetCategories();
+            var product = new Product();
+            product.Categories = categoryList;
+
+            return product;
+        }
+
+
+        public IActionResult InsertProduct(Product productToInsert)
+        {
+            var prod = repo.AssignCategory();
+            return View(prod);
+        }
+
+        public IActionResult InsertProductToDatabase(Product productToInsert)
+        {
+            repo.InsertProduct(productToInsert);
+            return RedirectToAction("Index");
         }
 
     }
